@@ -31,6 +31,9 @@ DEFAULT_STANZA_DIR = os.getenv(
     os.path.join(HOME_DIR, 'stanza_resources')
 )
 
+# Processors to be used in annotation Pipeline:
+PROCESSORS = ['tokenize', 'ner']
+
 
 class StanzaEntityDetector(Detector):
     """Search for people's names, organization's names and locations within text using the stanford 3 class model.
@@ -99,6 +102,12 @@ class StanzaEntityDetector(Detector):
             return True
         return False
 
+    @staticmethod
+    def _download() -> Pipeline:
+        """Helper method to trigger downloading of Stanza's resources upon first init of Pipeline"""
+        pipeline = Pipeline(processors=PROCESSORS)
+        return pipeline
+
     def iter_filth(self, text: str, document_name: Optional[str] = None):
         """Yields discovered filth in the provided ``text``.
 
@@ -109,10 +118,9 @@ class StanzaEntityDetector(Detector):
         :return: An iterator to the discovered :class:`Filth`
         :rtype: Iterator[:class:`Filth`]
         """
-        processors = ['tokenize', 'ner']
         if not self._check_downloaded():
-            pipeline = Pipeline(processors=processors)
-        pipeline = Pipeline(processors=processors, download_method=None)
+            pipeline = self._download()
+        pipeline = Pipeline(processors=PROCESSORS, download_method=None)
         doc = pipeline(text)
         # List of tuples of text/type for each entity in document
         tags = [(ent.text, ent.type) for ent in doc.ents]

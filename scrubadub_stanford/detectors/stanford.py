@@ -15,7 +15,7 @@ try:
 except ImportError:
     raise ImportError(
         'To use scrubadub.detectors.stanford extra dependencies need to be installed.\n'
-        'Please run: pip install scrubadub[stanford]'
+        'Please run: pip install scrubadub-stanford'
     )
 
 from typing import Dict, Type, Optional

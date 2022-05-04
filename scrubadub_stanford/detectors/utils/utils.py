@@ -1,5 +1,5 @@
 """
-Helper function for iterating through annotated list of entities done by Stanford NER models"
+Helper function for iterating through list of entities annotated by Stanford NER models"
 """
 from typing import Dict, Type, List, Tuple, Optional
 import re
