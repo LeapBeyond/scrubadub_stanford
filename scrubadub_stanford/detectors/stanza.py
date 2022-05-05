@@ -120,7 +120,8 @@ class StanzaEntityDetector(Detector):
         """
         if not self._check_downloaded():
             pipeline = self._download()
-        pipeline = Pipeline(processors=PROCESSORS, download_method=None)
+        else:
+            pipeline = Pipeline(processors=PROCESSORS, download_method=None)
         doc = pipeline(text)
         # List of tuples of text/type for each entity in document
         tags = [(ent.text, ent.type) for ent in doc.ents]
