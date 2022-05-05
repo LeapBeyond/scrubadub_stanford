@@ -10,7 +10,7 @@ tests = [
     "mypy --config-file setup.cfg scrubadub_stanford/",
     "flake8  --config setup.cfg scrubadub_stanford/",
     # If py3.5 then examples with spacy don't work so disable doctests
-    'if python3 --version | grep -Evq "Python (3\\.5\\.)" ; then nosetests --with-doctest --doctest-extension=rst ./tests/ ./scrubadub_stanford/ ; else nosetests ; fi',
+    'if python --version | grep -Evq "Python (3\\.5\\.)" ; then nosetests --with-doctest --doctest-extension=rst ./tests/ ./scrubadub_stanford/ ; else nosetests ; fi',
 ]
 
 
