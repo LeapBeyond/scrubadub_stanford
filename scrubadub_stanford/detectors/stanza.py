@@ -105,7 +105,7 @@ class StanzaEntityDetector(Detector):
     @staticmethod
     def _download() -> Pipeline:
         """Helper method to trigger downloading of Stanza's resources upon first init of Pipeline"""
-        pipeline = Pipeline(processors=PROCESSORS)
+        pipeline = Pipeline(processors=PROCESSORS, verbose=False)
         return pipeline
 
     def iter_filth(self, text: str, document_name: Optional[str] = None):
@@ -121,7 +121,7 @@ class StanzaEntityDetector(Detector):
         if not self._check_downloaded():
             pipeline = self._download()
         else:
-            pipeline = Pipeline(processors=PROCESSORS, download_method=None)
+            pipeline = Pipeline(processors=PROCESSORS, download_method=None, verbose=False)
         doc = pipeline(text)
         # List of tuples of text/type for each entity in document
         tags = [(ent.text, ent.type) for ent in doc.ents]
